@@ -85,12 +85,12 @@ extends   AbstractModelRepository
      * @param    Validation failure throws exception? (mostly used by createFromForm() method for final checkup)
      * @return   bool false | parsedReport object? todo
      */
-    public function isUploadFormValidForUser ($form, $User, $throws=false)
+    public function isUploadedFileValidForUser ($filePath, $User, $origFileName, $form, $throws=false)
     {
-        // Generic validation, provided by Form and entity annotations
-        if (!parent::isFormValid($form, $throws)) {
-            return $this->formValidationFailure($throws);
-        }
+        // Skip generic validation - we are adding errors, thus we prevent looped processing
+        //if (!parent::isFormValid($form, $throws)) {
+        //    return $this->formValidationFailure($throws);
+        //}
 
         // Get repositories
         $dRepo = $this->getModelRepository('Domain');
@@ -98,9 +98,9 @@ extends   AbstractModelRepository
 
         // Try to parse file
         try {
-            $parsedReport = $rRepo->parseReportFile($form->get('reportFile')->getData()->getPathname());
+            $parsedReport = $rRepo->parseReportFile($filePath);
         } catch (\Exception $e) {
-            $form->get('reportFile')->addError(new FormError('File parsing failed: '. $e->getMessage()));
+            $form->addError(new FormError("File parsing failed: filename=$origFileName, error=". $e->getMessage()));
             return $this->formValidationFailure($throws);
         }
 
@@ -108,16 +108,16 @@ extends   AbstractModelRepository
         // Auth error is the same to prevent unauthorized domain-in-db-check.
         // There could still be possible time-analysis-based attack here, but let's keep our focus on functionality:)
         $reportForDomain = $parsedReport->policy_published->domain;
-        $authError = new FormError('Report domain is not in your profile: '. $reportForDomain);
+        $authError = new FormError("Domain is not in your profile: $reportForDomain");
 
         if (!$dRepo->existsByDomainName($reportForDomain)) {
-            $form->get('reportFile')->addError($authError);
+            $form->addError($authError);
             return $this->formValidationFailure($throws);
         }
         $Domain = $dRepo->getByDomainName($reportForDomain);
 
         if (!$Domain->isOwnedBy($User)) {
-            $form->get('reportFile')->addError($authError);
+            $form->addError($authError);
             return $this->formValidationFailure($throws);
         }
 
@@ -127,7 +127,7 @@ extends   AbstractModelRepository
         $reportStart       = $parsedReport->report_metadata->date_range->begin;
         $reportEnd         = $parsedReport->report_metadata->date_range->end;
         if ($rRepo->isAlreadyProcessed($Domain, $reportingDomain, $submittedReportId, $reportStart, $reportEnd)) {
-            $form->get('reportFile')->addError(new FormError("This report has already been processed"));
+            $form->addError(new FormError("This report has already been processed: for=$reportForDomain, from=$reportingDomain, id=$submittedReportId, start=$reportStart, end=$reportEnd"));
             return $this->formValidationFailure($throws);
         }
 
@@ -147,7 +147,7 @@ extends   AbstractModelRepository
      */
     public function parseReportFile ($reportFilePath)
     {
-        return \Teon\Dmarc\Parser\AggregateReportParser::parseFile($reportFilePath);
+        return \Teon\Dmarc\Parser\AggregateReportParser::parseFile($reportFilePath, false);
     }
 
 
@@ -264,6 +264,7 @@ extends   AbstractModelRepository
                     $newReportRecordEntity->setAuthResultSpfDomain       ($parsedRecord->auth_results->spf->domain);
                     $newReportRecordEntity->setAuthResultSpfResult       ($parsedRecord->auth_results->spf->result);
                 }
+
                 $RrRepo->createFromEntity($newReportRecordEntity);
             }
 

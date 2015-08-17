@@ -56,7 +56,7 @@
         "jquery/jquery":       "1.11.*",
         "teon/base": "0.2.7",
         "teon/symfony": "0.2.*",
-        "teon/dmarc-parser": "0.1.*",
+        "teon/dmarc-parser": "^0.1.2",
         "ob/highcharts-bundle": "~1.2",
         "trend404/trend404bundle": "~0.1",
         "friendsofsymfony/user-bundle": "~1.3"

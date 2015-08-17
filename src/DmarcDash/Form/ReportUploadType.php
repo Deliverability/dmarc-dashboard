@@ -48,7 +48,8 @@ class ReportUploadType extends AbstractType
     public function buildForm (FormBuilderInterface $builder, array $options)
     {
         $builder->add('reportFile', 'file', array(
-            'label' => 'Report file (.zip, .gz, .xml)',
+            'label' => 'Choose report files (.zip, .gz, .xml)',
+            'multiple' => true,
             'attr'  => array(
                 'autofocus' => 'true',
                 'accept'    => '.zip, .gz, .xml',

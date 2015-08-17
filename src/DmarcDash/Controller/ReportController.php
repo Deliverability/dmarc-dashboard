@@ -67,17 +67,60 @@ class ReportController extends Controller
         $rRepo = $this->get('Core')->getModelRepository('Report');
         $form = $rRepo->getUploadForm($Request);
 
-        // Validate form
-        $falseOrParsedReport = $rRepo->isUploadFormValidForUser($form, $CurUser);
-        if (!$falseOrParsedReport) {
+        // Just display if applicable
+        if (!$form->isValid()) {
             return $this->renderUploadFormView($form);
         }
-        $parsedReport = $falseOrParsedReport;
 
-        // Try to parse file
-        $Report = $rRepo->createReportFromParsedReport($parsedReport);
-        $this->addFlash('success', 'Report successfully processed: '. $Report->reportDomain .', id='. $Report->submittedReportId);
-        return $this->redirectToRoute('reports');
+        // One or multiple files?
+        $uploadedStuff = $form->get('reportFile')->getData();
+        if (is_array($uploadedStuff)) {
+            $uploadedFiles = $uploadedStuff;
+        } else {
+            $uploadedFiles = array($uploadedStuff);
+        }
+        $uploadedFilesCount = count($uploadedFiles);
+
+        // Try to parse each of them
+        $errorCount   = 0;
+        $successCount = 0;
+        foreach ($uploadedFiles as $uploadedFile) {
+            try {
+                $falseOrParsedReport = $rRepo->isUploadedFileValidForUser(
+                    $uploadedFile->getPathname(),
+                    $CurUser,
+                    $uploadedFile->getClientOriginalName(),
+                    $form
+                );
+            } catch (\Exception $e) {
+                $form->addError(new FormError("Report processing error: ". $uploadedFile->getClientOriginalName() .", reason: ". $e->getMessage()));
+                $errorCount++;
+                continue;
+            }
+
+            // Was parsing successfuly?
+            if (!$falseOrParsedReport) {
+                // Error was already added to form by parser
+                $errorCount++;
+                continue;
+            }
+            $parsedReport = $falseOrParsedReport;
+
+            $Report = $rRepo->createReportFromParsedReport($parsedReport);
+            $successCount++;
+        }
+
+        // Single flashmessage for success, as there seems to be a limit
+        if ($successCount > 0) {
+            $this->addFlash('success', "Sucessfully parsed $successCount out of $uploadedFilesCount uploaded files.");
+        }
+
+        if ($errorCount > 0) {
+            $this->addFlash('error', "Processing of some of uploaded files failed ($errorCount out of $uploadedFilesCount)!");
+            return $this->renderUploadFormView($form);
+        } else {
+            return $this->redirectToRoute('reports');
+        }
     }
 
 
