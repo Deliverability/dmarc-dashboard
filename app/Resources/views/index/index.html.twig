@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block pagetitle %}DMARC Alignment This Month{% endblock %}
+{% block pagesubtitle %}{% endblock %}
+
+
+
+{% block body %}
+    <div class="row">
+
+
+
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    {{
+                        render(controller(
+                            'DmarcDash:Stat:chartMonthlyTotals'
+                        ))
+                    }}
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+{% endblock %}

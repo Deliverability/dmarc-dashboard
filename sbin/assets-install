@@ -1,0 +1,35 @@
+#!/bin/bash
+
+
+
+### Configure shell
+#
+set -e
+set -u
+
+
+
+### Get directories
+#
+MYDIR=`dirname $0`
+MYDIR_ABS=`realpath $MYDIR`
+APPROOT_ABS=`dirname $MYDIR_ABS` 
+
+
+
+### Check if less is installed
+#
+(
+    cd $APPROOT_ABS
+    if [ ! -d node_modules/less ]; then
+        npm install less
+    fi
+)
+
+
+
+### Pass execution to console
+#
+export NODE_PATH="$APPROOT_ABS/node_modules"
+$MYDIR/console assetic:dump $@
+$MYDIR/console braincrafted:bootstrap:install $@

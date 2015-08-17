@@ -1,0 +1,15 @@
+#!/bin/bash
+
+
+
+### Pass execution to console
+#
+MYDIR=`dirname $0`
+$MYDIR/console cache:clear --env=prod $@
+$MYDIR/console cache:clear --env=dev  $@
+
+
+
+### Chmod whole var/ subdir structure
+#
+chmod -R 777 $MYDIR/../var

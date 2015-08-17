@@ -1,0 +1,30 @@
+### Explicit path ignores
+#
+/app/bootstrap.php.cache
+/app/config/parameters.yml
+/app/phpunit.xml
+/bin/
+/composer.phar
+/dev-hosts.php
+/var/cache/*
+!var/cache/.gitkeep
+/var/logs/*
+!var/logs/.gitkeep
+/var/tmp/*
+!var/tmp/.gitkeep
+/vendor/
+/web/bundles/
+
+
+
+### Supplemental files for development
+#
+/nbproject/private/
+/node_modules/
+/vendor-local/
+
+
+
+### Ignore all backup files
+#
+*~

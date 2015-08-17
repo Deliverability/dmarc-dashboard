@@ -1,0 +1,82 @@
+<table class="table table-striped table-hover">
+
+    <tr>
+        <th>Report for</th>
+        <th>Report from</th>
+        <th>Period</th>
+        <th>Records</th>
+        <th>Actions</th>
+        <th></th>
+    </tr>
+
+    {% for itemModel in reports %}
+        {% set itemEntity   = itemModel.getEntity %}
+        {% set domainModel  = itemModel.getDomain %}
+        {% set domainEntity = domainModel.getEntity %}
+        <tr>
+
+
+
+            <td>
+                <a href="{{ path('domain-list', {'domain': domainEntity.domainName}) }}">
+                    {{ domainEntity.domainName }}
+                </a>
+            </td>
+
+            <td>
+                {{ itemEntity.reportDomain }}
+            </td>
+
+            <td>
+                {{ itemEntity.timestampStart|date('c') }} -
+                {{ itemEntity.timestampEnd|date('c') }}
+            </td>
+
+            <td>
+                {{ itemModel.getRecordCount }}
+            </td>
+
+            <td>
+                <a class="btn btn-xs btn-primary" href="{{ path('domain-list', {'domain': domainEntity.domainName}) }}">
+                    Chart
+                </a>
+            </td>
+
+
+
+            <td align="right">
+                <a
+                    class="btn btn-xs btn-danger"
+                    onclick="return domainListDeleteDoubleCheck(this)"
+                    href="{{ path('domain-delete', {'domain': domainEntity.domainName}) }}"
+                >
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    Delete
+                </a>
+            </td>
+
+
+
+        </tr>
+    {% endfor %}
+</table>
+
+
+
+<script type="text/javascript">
+<!--
+function domainListDeleteDoubleCheck (buttonId)
+{
+    var check1 = confirm("Are you sure?");
+    if (!check1) {
+        return false;
+    }
+    var check2 = confirm("Are you 100% bloody certain?!?");
+    if (check2) {
+        return true;
+    } else {
+        return false;
+    }
+}
+-->
+</script>

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block pagetitle %}
+    My reports
+{% endblock %}
+
+
+
+{% block body %}
+
+
+
+    <a class="btn btn-primary" href="{{ path('report-upload') }}">
+        <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+        Upload new report
+    </a>
+    <br />
+    <br />
+
+
+
+    {% include "report/partial/table.html.twig" with {'reports': reports} %}
+
+
+
+{% endblock %}

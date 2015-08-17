@@ -1,0 +1,34 @@
+#!/bin/bash
+
+
+
+### Configure shell
+#
+set -e
+set -u
+
+
+
+### Get directories
+#
+MYDIR=`dirname $0`
+MYDIR_ABS=`realpath $MYDIR`
+APPROOT_ABS=`dirname $MYDIR_ABS` 
+cd $APPROOT_ABS
+
+
+
+### Truncate logs
+#
+LOGFILE="var/logs/dev/dev.log"
+if [ -f $LOGFILE ]; then
+    cat /dev/null > $LOGFILE
+    echo "Log truncated: $LOGFILE"
+fi
+
+LOGFILE="var/logs/prod/prod.log"
+if [ -f $LOGFILE ]; then
+    cat /dev/null > $LOGFILE
+    echo "Log truncated: $LOGFILE"
+fi
+

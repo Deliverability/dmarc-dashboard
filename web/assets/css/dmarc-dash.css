@@ -1,0 +1,17 @@
+body {
+    padding-top:   50px;
+    padding-left:  25px;
+    padding-right: 25px;
+
+/*    background-image:        url("/assets/images/night-sky.jpg"); */
+    background-repeat:       no-repeat;
+    background-attachment:   fixed;
+    -webkit-background-size: cover;
+    -moz-background-size:    cover;
+    -o-background-size:      cover;
+    background-size:         cover;
+}
+
+footer {
+    padding-top: 500px;
+}

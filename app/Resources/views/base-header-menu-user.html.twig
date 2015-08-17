@@ -1,0 +1,92 @@
+        <!-- ================================ -->
+        <!-- The actual navigation -->
+        <!-- ================================ -->
+        <nav class="collapse navbar-collapse">
+
+
+
+
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{{ path('dash-index') }}">
+                        <span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>
+                        My Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('domain-list') }}">
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                        My Domains
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('reports') }}">
+                        <span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+                        My Reports
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('report-upload') }}">
+                        <span class="badge">
+                            <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                            Upload new report
+                        </span>
+                    </a>
+                </li>
+<!--
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"
+                        href="{{ path('fos_user_security_login') }}">
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                        Domains
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ path('fos_user_security_login') }}"><b>Hosted domains</b></a></li>
+                        <li><a href="{{ path('fos_user_security_login') }}">Aliased domains</a></li>
+                        <li><a href="{{ path('fos_user_security_login') }}">All</a></li>
+                    </ul>
+                </li>
+-->
+
+            </ul>
+
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="{{ path('fos_user_security_logout') }}">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        Settings
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('fos_user_security_logout') }}">
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+
+
+
+
+            <!-- ================================ -->
+            <!-- Ensure that hover works          -->
+            <!-- ================================ -->
+            <script type="text/javascript">
+                $('.navbar .dropdown').hover(
+                    function() {
+                        $(this).find('.dropdown-menu').first().stop(true, true).slideDown(150);
+                    },
+                    function() {
+                        $(this).find('.dropdown-menu').first().stop(true, true).slideUp(105)
+                    }
+                );
+            </script>
+
+
+
+        </nav> <!-- collapse navbar-collapse -->

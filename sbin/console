@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+
+### Just pass execution to /app/console
+#
+MYDIR=`dirname $0`
+$MYDIR/../app/console $@

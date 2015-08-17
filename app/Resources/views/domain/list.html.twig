@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block pagetitle %}
+    My domains
+{% endblock %}
+
+
+
+{% block body %}
+
+
+
+    <a class="btn btn-success" href="{{ path('domain-add') }}">
+        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+        Add new domain
+    </a>
+    <br />
+    <br />
+
+
+
+    {% include "domain/partial/table.html.twig" with {'domains': domains} %}
+
+
+
+{% endblock %}

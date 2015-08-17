@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block pagetitle %}
+    Add new domain
+{% endblock %}
+
+
+
+{% block body %}
+
+
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+
+
+    <a class="btn btn-warning" href="{{ path('domain-list') }}">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        Cancel
+    </a>
+
+
+
+{% endblock %}

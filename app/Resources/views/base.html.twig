@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>DMARC Dashboard - {% block title %}Visualize your DMARC alignment{% endblock %}</title>
+        {% block stylesheets %}
+            {% stylesheets 'bundles/app/css/*' %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen" />
+        {# % include 'BraincraftedBootstrapBundle::ie8-support.html.twig' % #}
+        <link href="{{ asset('assets/css/dmarc-dash.css') }}" rel="stylesheet" />
+    </head>
+    <body>
+
+        <!-- jQuery (necessary for Bootstraps JavaScript plugins) -->
+        <script src="{{ asset('js/jquery.js') }}"></script>
+        <!-- Include all JavaScripts, compiled by Assetic -->
+        <script src="{{ asset('js/bootstrap.js') }}"></script>
+
+
+
+        <header>
+            {% include 'base-header.html.twig' %}
+        </header>
+
+
+
+        <main>
+            {% block pagetitledisable %}
+                <h1>{% block pagetitle %}pagetitle block missing!{% endblock %}</h1>
+                <h4>{% block pagesubtitle %}{% endblock %}</h4>
+                <br />
+            {% endblock %}
+
+            {% block flash_messages %}
+                {% include 'base-flash-messages.html.twig' %}
+            {% endblock %}
+
+            {% block body %}
+                {% block fos_user_content %}{% endblock %}
+            {% endblock %}
+            {% block javascripts %}
+            {% endblock %}
+        </main>
+
+
+
+        <footer>
+            <hr>
+            {% include 'base-footer.html.twig' %}
+        </footer>
+
+
+
+    </body>
+</html>

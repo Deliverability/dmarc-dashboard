@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block pagetitle %}Upload new DMARC report{% endblock %}
+
+
+
+{% block body %}
+
+
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+
+
+    <a class="btn btn-danger" href="{{ path('reports') }}">
+        <span class="badge">&laquo;</span>
+        Cancel
+    </a>
+
+
+
+{% endblock %}
