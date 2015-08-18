@@ -59,7 +59,9 @@
         "teon/dmarc-parser": "^0.1.2",
         "ob/highcharts-bundle": "~1.2",
         "trend404/trend404bundle": "~0.1",
-        "friendsofsymfony/user-bundle": "~1.3"
+        "friendsofsymfony/user-bundle": "~1.3",
+        "teon/dkim": "0.1.*",
+        "php-imap/php-imap": "~2.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
