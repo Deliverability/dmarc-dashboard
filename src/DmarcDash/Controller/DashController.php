@@ -31,10 +31,37 @@ class DashController extends Controller
      */
     public function indexAction()
     {
-$response = $this->forward('DmarcDash:Stat:chartMonthlyTotals', array());
+        // Get current user
+        $CurUser = $this->get('Core')->getAuthenticatedUser();
+
+        //
+        $ChartService       = $this->get('Chart');
+        $chartUserOverall = $ChartService->getUserOverall($CurUser);
 
         return $this->render('dash/index.html.twig', array(
-            'data'     => "asdf",
+            'chartUserOverall' => $chartUserOverall,
+        ));
+    }
+
+
+
+    /**
+     * @Route("/dash/failures-by-domain", name="dash-failures-by-domain")
+     */
+    public function failuresByDomainAction()
+    {
+        // Get current user
+        $CurUser = $this->get('Core')->getAuthenticatedUser();
+
+        //
+        $ChartService = $this->get('Chart');
+        $chart        = $ChartService->getFailuresByDomain_forUser($CurUser);
+        $divId        = 'chart-failures-by-domain';
+        $chart->chart->renderTo($divId);
+
+        return $this->render('dash/failures-by-domain.html.twig', array(
+            'chart' => $chart,
+            'divId' => $divId,
         ));
     }
 }

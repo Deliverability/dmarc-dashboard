@@ -3,7 +3,7 @@
 
 
 {% block pagetitle %}My alignment{% endblock %}
-{% block pagesubtitle %}DMARC alignment across all my domains{% endblock %}
+{% block pagesubtitle %}Failures by domain{% endblock %}
 
 
 
@@ -28,8 +28,8 @@
                 <div class="panel-body">
                     {{
                         include('chart/_common.html.twig', {
-                            'chart': chartUserOverall,
-                            'divId': 'chart-user-overall',
+                            'chart': chart,
+                            'divId': divId,
                         })
                     }}
                 </div>

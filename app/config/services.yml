@@ -20,6 +20,14 @@ services:
         arguments: [ @Core, @doctrine.orm.entity_manager ]
 
 
+    Chart:
+        class:     DmarcDash\Service\ChartService
+        arguments: [ @Core, @doctrine.orm.entity_manager ]
+    Stats:
+        class:     DmarcDash\Service\StatsService
+        arguments: [ @Core, @doctrine.orm.entity_manager ]
+
+
 
     ### Model repositories
     #

@@ -40,7 +40,7 @@ extends   AbstractModel
      */
     public function getDomains ()
     {
-        return $this->getModelRepository('Domain')->getByUser($this);
+        return $this->getMyModelRepository()->getModelRepository('Domain')->findByUser($this);
     }
 
 

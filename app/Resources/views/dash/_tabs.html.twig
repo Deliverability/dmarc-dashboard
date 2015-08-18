@@ -1,0 +1,29 @@
+<ul class="nav nav-tabs">
+    <li role="presentation" {% if app.request.get('_route') == 'dash-index' %}class="active"{% endif %}>
+        <a href="{{ path('dash-index')  }}">
+            Overall
+        </a>
+    </li>
+    <li role="presentation" {% if app.request.get('_route') == 'dash-failures-by-domain' %}class="active"{% endif %}>
+        <a href="{{ path('dash-failures-by-domain')  }}">
+            Failures by domain
+        </a>
+    </li>
+
+<!--
+    <li role="presentation" {% if 'all' == activeTab %}class="active"{% endif %}>
+        <a href="{{ path('dash-index')  }}">
+            SPF errors by domain
+        </a>
+    </li>
+
+    <li role="presentation" class="pull-right">
+        <a class="btn btn-info pull-right" href="{{ path('dash-index') }}">
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+            Add new domain
+        </a>
+    </li>
+-->
+
+</ul>
+<br />

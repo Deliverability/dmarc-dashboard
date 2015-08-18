@@ -21,20 +21,21 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Default page controller
  */
-class IndexController extends Controller
+class PublicController extends Controller
 {
 
 
 
     /**
-     * @Route("/", name="homepage")
+     * @Route("/public", name="public-index")
      */
     public function indexAction()
     {
-        if ($this->get('Core')->isUserAuthenticated()) {
-            return $this->redirectToRoute('dash-index');
-        } else {
-            return $this->redirectToRoute('public-index');
-        }
+        $ChartService       = $this->get('Chart');
+        $chartPublicOverall = $ChartService->getPublicOverall();
+
+        return $this->render('public/index.html.twig', array(
+            'chartPublicOverall' => $chartPublicOverall,
+        ));
     }
 }
