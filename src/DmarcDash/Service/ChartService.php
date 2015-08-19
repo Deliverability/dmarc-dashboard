@@ -48,7 +48,7 @@ extends  ParentService
         $dataAll    = array();
         $ts         = time();
         $tsDayLast  = $ts - ($ts % 86400);
-        for ($d=-60 ; $d<=0 ; $d++) {
+        for ($d=-60 ; $d<=-1 ; $d++) {   // Only display up to yesterday. Today's reports will start arriving no sooner than tomorrow
 
             // Data point value
             $dataPointDayStart = $tsDayLast + ($d * 86400);
@@ -101,7 +101,7 @@ extends  ParentService
         $dataAll    = array();
         $ts         = time();
         $tsDayLast  = $ts - ($ts % 86400);
-        for ($d=-60 ; $d<=0 ; $d++) {
+        for ($d=-60 ; $d<=-1 ; $d++) {   // Only display up to yesterday. Today's reports will start arriving no sooner than tomorrow
 
             // Data point value
             $dataPointDayStart = $tsDayLast + ($d * 86400);
